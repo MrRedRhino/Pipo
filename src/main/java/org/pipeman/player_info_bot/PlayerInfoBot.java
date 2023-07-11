@@ -43,6 +43,11 @@ public final class PlayerInfoBot extends JavaPlugin {
 
             guild.upsertCommand("mods", "Returns instructions on how to join the server")
                     .queue();
+
+            guild.upsertCommand("top-n", "Returns a list of the most active users. Limit and offset can be specified")
+                    .addOption(OptionType.INTEGER, "limit", "Limit of elements to return", true)
+                    .addOption(OptionType.INTEGER, "offset", "Offset of the returned elements in the list", true)
+                    .queue();
         } else {
             System.out.println("Guild is null!");
         }

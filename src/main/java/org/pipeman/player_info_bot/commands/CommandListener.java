@@ -3,6 +3,7 @@ package org.pipeman.player_info_bot.commands;
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
@@ -15,7 +16,8 @@ public class CommandListener extends ListenerAdapter {
         switch (event.getName()) {
             case "online" -> CommandOnline.handle(event);
             case "playerinfo" -> CommandPlayerinfo.handle(event);
-            case "top-10" -> CommandTop10.handle(event);
+            case "top-10" -> CommandTopN.handleTop10(event);
+            case "top-n" -> CommandTopN.handle(event);
             case "mods" -> CommandMods.handle(event);
         }
     }
@@ -23,7 +25,7 @@ public class CommandListener extends ListenerAdapter {
     @Override
     public void onCommandAutoCompleteInteraction(CommandAutoCompleteInteractionEvent event) {
         if (!event.getName().equals("playerinfo")) return;
-        String value = event.getOption("playername").getAsString();
+        String value = event.getOption("playername", "", OptionMapping::getAsString);
         event.replyChoiceStrings(getNameSuggestions(value.toLowerCase())).queue();
     }
 

@@ -1,5 +1,7 @@
 package org.pipeman.player_info_bot;
 
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.json.JSONObject;
@@ -115,5 +117,13 @@ public class Utils {
             }
         }
         return Optional.empty();
+    }
+
+    public static MessageEmbed createErrorEmbed(String error) {
+        return new EmbedBuilder()
+                .setTitle("Error")
+                .addField("Description", error, false)
+                .setColor(new Color(59, 152, 0))
+                .build();
     }
 }

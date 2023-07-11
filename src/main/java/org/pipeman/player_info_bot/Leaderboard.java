@@ -14,6 +14,12 @@ public class Leaderboard {
         return leaderboard.subList(0, Math.min(limit, leaderboard.size()));
     }
 
+    public static List<LeaderboardEntry> getLeaderboard(int limit, int offset) {
+        List<LeaderboardEntry> leaderboard = getLeaderboard();
+        if (offset >= leaderboard.size()) return List.of();
+        return leaderboard.subList(offset, Math.min(leaderboard.size(), limit + offset));
+    }
+
     public static List<LeaderboardEntry> getLeaderboard() {
         List<LeaderboardEntry> list = new ArrayList<>();
         for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
