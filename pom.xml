@@ -94,5 +94,12 @@
             <version>2.1.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>net.lapismc</groupId>
+            <artifactId>AFKPlus</artifactId>
+            <version>3.4.1</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>

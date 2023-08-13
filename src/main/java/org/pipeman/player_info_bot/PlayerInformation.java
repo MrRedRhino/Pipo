@@ -11,7 +11,7 @@ public record PlayerInformation(int rank, long playtime, long lastSeen, boolean 
     public static Optional<PlayerInformation> of(String playerName) {
         return Utils.getOfflinePlayer(playerName).map(player -> new PlayerInformation(
                 Leaderboard.getRank(playerName),
-                player.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20L,
+                Utils.getPlaytime(player),
                 player.getLastPlayed(),
                 player.isOnline(),
                 GriefDefenderImpl.isAvailable() ? Optional.of(GriefDefenderImpl.getClaimBlocks(player.getUniqueId())) : Optional.empty(),

@@ -27,6 +27,7 @@ public class CommandPlayerinfo {
         embedBuilder.setTitle(playerName);
         embedBuilder.setColor(new Color(59, 152, 0));
 
+        event.deferReply().queue();
         Optional<PlayerInformation> information = PlayerInformation.of(playerName);
 
         embedBuilder.addField(
@@ -75,7 +76,7 @@ public class CommandPlayerinfo {
 
         String filename = playerName.hashCode() + ".png";
         embedBuilder.setThumbnail("attachment://" + filename);
-        event.replyFiles(FileUpload.fromData(Utils.getSkin(playerName), filename))
+        event.getHook().sendFiles(FileUpload.fromData(Utils.getSkin(playerName), filename))
                 .setEmbeds(embedBuilder.build())
                 .queue();
     }

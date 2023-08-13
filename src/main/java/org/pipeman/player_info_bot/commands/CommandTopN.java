@@ -47,6 +47,8 @@ public class CommandTopN {
     }
 
     private static void replyWithLeaderboard(List<LeaderboardEntry> entries, int startRank, SlashCommandInteractionEvent event) {
+        event.deferReply().queue();
+
         StringBuilder content = new StringBuilder();
         int rank = startRank;
         for (LeaderboardEntry le : entries) {
@@ -64,7 +66,7 @@ public class CommandTopN {
                 .addField("Leaderboard", content.toString(), false)
                 .setColor(new Color(59, 152, 0))
                 .build();
-        event.replyEmbeds(embed).queue();
+        event.getHook().editOriginalEmbeds(embed).queue();
     }
 
     private static String escapeName(String name) {

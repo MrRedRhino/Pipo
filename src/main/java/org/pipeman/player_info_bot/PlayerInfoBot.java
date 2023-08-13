@@ -8,17 +8,22 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.pipeman.player_info_bot.commands.CommandListener;
+import org.pipeman.player_info_bot.tps.Lag;
+
+import java.time.Duration;
+import java.util.Timer;
 
 public final class PlayerInfoBot extends JavaPlugin {
+    private static final Timer AUTOROLE_TIMER = new Timer();
     public static JDA JDA;
 
     @Override
     public void onEnable() {
         String[] arguments = System.getProperty("sun.java.command").split(" ");
         String token = getArgument("token", arguments);
-        System.out.println(token);
+
         JDA = JDABuilder.createDefault(token)
-                .enableIntents(GatewayIntent.MESSAGE_CONTENT)
+                .enableIntents(GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS)
                 .build();
         JDA.addEventListener(new CommandListener());
         JDA.addEventListener(new DownloadModsListener());
@@ -48,9 +53,15 @@ public final class PlayerInfoBot extends JavaPlugin {
                     .addOption(OptionType.INTEGER, "limit", "Limit of elements to return", true)
                     .addOption(OptionType.INTEGER, "offset", "Offset of the returned elements in the list", true)
                     .queue();
+
+            long roleId = Long.parseLong(getArgument("kryeitor-role-id", arguments));
+            long interval = Duration.ofDays(1).toMillis();
+            AUTOROLE_TIMER.schedule(new Autorole(guild, JDA.getRoleById(roleId)), interval, interval);
         } else {
             System.out.println("Guild is null!");
         }
+
+        getServer().getScheduler().scheduleSyncRepeatingTask(this, new Lag(), 100L, 1L);
     }
 
     @Override
