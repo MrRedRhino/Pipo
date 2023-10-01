@@ -3,6 +3,11 @@ package org.pipeman.player_info_bot;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.lapismc.afkplus.AFKPlus;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.stat.Stat;
+import net.minecraft.stat.StatType;
+import net.minecraft.stat.Stats;
+import net.minecraft.util.Identifier;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Statistic;
@@ -24,7 +29,7 @@ import java.util.function.Function;
 
 public class Utils {
     private static final HttpClient CLIENT = HttpClient.newHttpClient();
-    private static final AFKPlus AFK_PLUS = (AFKPlus) AFKPlus.getInstance();
+    //private static final AFKPlus AFK_PLUS = (AFKPlus) AFKPlus.getInstance();
 
     public static byte[] getSkin(String name) {
         try {
@@ -131,8 +136,10 @@ public class Utils {
     }
 
     public static long getPlaytime(OfflinePlayer player) {
-        long afkTime = AFK_PLUS.getPlayer(player).getTotalTimeAFK() / 1000;
-        long playtime = player.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20L;
-        return Math.max(0, playtime - afkTime);
+    //    long afkTime = AFK_PLUS.getPlayer(player).getTotalTimeAFK() / 1000;
+        Stat<Identifier> stat = Stats.CUSTOM.getOrCreateStat(Stats.PLAY_TIME);
+        long playtime = player.getStatHandler().getStat(stat) / 20L;
+    //    return Math.max(0, playtime - afkTime);
+        return Math.max(0, playtime);
     }
 }

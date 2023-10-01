@@ -4,6 +4,9 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.utils.FileUpload;
+import net.minecraft.stat.Stat;
+import net.minecraft.stat.Stats;
+import net.minecraft.util.Identifier;
 import org.bukkit.Statistic;
 import org.pipeman.player_info_bot.PlayerInformation;
 import org.pipeman.player_info_bot.Utils;
@@ -61,13 +64,13 @@ public class CommandPlayerinfo {
                     )
             );
 
-            Function<Statistic, Integer> statisticSupplier = inf.statisticSupplier();
+            Function<Stat<Identifier>, Integer> statisticSupplier = inf.statisticSupplier();
             embedBuilder.addField(
                     "Other statistics",
                     String.format("%.1f km walked, %d deaths, %d mobs killed",
-                            statisticSupplier.apply(Statistic.WALK_ONE_CM) / 100_000d,
-                            statisticSupplier.apply(Statistic.DEATHS),
-                            statisticSupplier.apply(Statistic.MOB_KILLS)
+                            statisticSupplier.apply(Stats.CUSTOM.getOrCreateStat(Stats.WALK_ONE_CM)) / 100_000d,
+                            statisticSupplier.apply(Stats.CUSTOM.getOrCreateStat(Stats.DEATHS)),
+                            statisticSupplier.apply(Stats.CUSTOM.getOrCreateStat(Stats.MOB_KILLS))
                     ),
                     false
             );

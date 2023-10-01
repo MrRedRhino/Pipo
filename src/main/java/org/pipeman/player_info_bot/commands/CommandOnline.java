@@ -3,13 +3,13 @@ package org.pipeman.player_info_bot.commands;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.HumanEntity;
+import org.pipeman.player_info_bot.MinecraftServerSupplier;
 import org.pipeman.player_info_bot.Utils;
 import org.pipeman.player_info_bot.tps.Lag;
 
 import java.awt.*;
 import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class CommandOnline {
 
     public static void handle(SlashCommandInteractionEvent event) {
         StringBuilder players = new StringBuilder();
-        List<String> names = Utils.map(Bukkit.getOnlinePlayers(), HumanEntity::getName);
+        List<String> names = Arrays.asList(MinecraftServerSupplier.getServer().getPlayerNames());
         Collections.sort(names);
 
         for (String name : names) {

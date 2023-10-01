@@ -6,6 +6,9 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.ISnowflake;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
+import net.minecraft.world.World;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.pipeman.player_info_bot.commands.CommandListener;
 import org.pipeman.player_info_bot.tps.Lag;
@@ -13,12 +16,12 @@ import org.pipeman.player_info_bot.tps.Lag;
 import java.time.Duration;
 import java.util.Timer;
 
-public final class PlayerInfoBot extends JavaPlugin {
+public final class PlayerInfoBot implements ModInitializer {
     private static final Timer AUTOROLE_TIMER = new Timer();
     public static JDA JDA;
 
     @Override
-    public void onEnable() {
+    public void onInitialize() {
         String[] arguments = System.getProperty("sun.java.command").split(" ");
         String token = getArgument("token", arguments);
 
@@ -62,12 +65,16 @@ public final class PlayerInfoBot extends JavaPlugin {
         }
 
         getServer().getScheduler().scheduleSyncRepeatingTask(this, new Lag(), 100L, 1L);
+        registerDisableEvent();
     }
 
-    @Override
-    public void onDisable() {
-        JDA.shutdown();
-        JDA = null;
+    public void registerDisableEvent() {
+        ServerWorldEvents.UNLOAD.register((server, world) -> {
+            if (world.getRegistryKey() == World.OVERWORLD) {
+                JDA.shutdown();
+                JDA = null;
+            }
+        });
     }
 
     public static boolean isMe(ISnowflake user) {

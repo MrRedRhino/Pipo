@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "player-info-bot",
+  "version": "${version}",
+  "name": "Player-Info-Bot",
+  "description": "",
+  "authors": [],
+  "contact": {
+    "repo": "https://github.com/MuriPlz/Player-Info-Bot"
+  },
+  "license": "All-Rights-Reserved",
+  "icon": "assets/player-info-bot/icon.png",
+  "environment": "server",
+  "entrypoints": {
+    "main": [
+      "org.pipeman.player_info_bot.PlayerInfoBot"
+    ]
+  },
+  "mixins": [
+    "player-info-bot.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
