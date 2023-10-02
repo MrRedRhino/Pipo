@@ -11,15 +11,14 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public record PlayerInformation(int rank, long playtime, long lastSeen, boolean online,
-                                Optional<Integer> totalClaimBlocks, Function<Stat<Identifier>, Integer> statisticSupplier) {
+                                Optional<Integer> totalClaimBlocks) {
     public static Optional<PlayerInformation> of(String playerName) {
         return Optional.of(new PlayerInformation(
                 Leaderboard.getRank(playerName),
                 Utils.getPlaytime(playerName),
                 OfflinesStats.getPlayerStat("last_played", Offlines.getUUIDbyName(playerName)),
                 Arrays.asList(MinecraftServerSupplier.getServer().getPlayerNames()).contains(playerName),
-                GriefDefenderImpl.isAvailable() ? Optional.of(GriefDefenderImpl.getClaimBlocks(Offlines.getUUIDbyName(playerName))) : Optional.empty(),
-                null
+                GriefDefenderImpl.isAvailable() ? Optional.of(GriefDefenderImpl.getClaimBlocks(Offlines.getUUIDbyName(playerName))) : Optional.empty()
         ));
     }
 }
