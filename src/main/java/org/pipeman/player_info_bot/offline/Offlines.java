@@ -1,41 +1,32 @@
 package org.pipeman.player_info_bot.offline;
 
+import com.mojang.authlib.GameProfile;
+import net.minecraft.util.UserCache;
 import org.json.JSONObject;
+import org.pipeman.player_info_bot.MinecraftServerSupplier;
 
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public class Offlines {
 
     public static UUID getUUIDbyName(String name) {
-        File playerDataDirectory = new File("world/playerdata/");
+        UserCache userCache = MinecraftServerSupplier.getServer().getUserCache();
+        if (userCache == null) return null;
+        Optional<GameProfile> gameProfile = userCache.findByName(name);
+        return gameProfile.map(GameProfile::getId).orElse(null);
+    }
 
-        File[] playerDataFiles = playerDataDirectory.listFiles();
-
-        if (playerDataFiles == null) return null;
-
-        for (File playerDataFile : playerDataFiles) {
-            String fileName = playerDataFile.getName();
-            if (fileName.endsWith(".dat")) {
-                UUID id = UUID.fromString(fileName.substring(0, fileName.length() - 4));
-
-                try {
-                    String jsonContent = new String(Files.readAllBytes(Paths.get(playerDataFile.getAbsolutePath())));
-                    JSONObject playerData = new JSONObject(jsonContent);
-
-                    String playerName = playerData.getString("name");
-
-                    if (playerName.equals(name)) return id;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return null;
+    public static String getNameByUUID(UUID id) {
+        UserCache userCache = MinecraftServerSupplier.getServer().getUserCache();
+        if (userCache == null) return "";
+        Optional<GameProfile> gameProfile = userCache.getByUuid(id);
+        return gameProfile.map(GameProfile::getName).orElse("");
     }
 
     public static List<String> getPlayerNames() {
@@ -48,38 +39,10 @@ public class Offlines {
 
         for (File playerDataFile : playerDataFiles) {
             String fileName = playerDataFile.getName();
-            if (fileName.endsWith(".dat")) {
-                try {
-                    String jsonContent = new String(Files.readAllBytes(Paths.get(playerDataFile.getAbsolutePath())));
-                    JSONObject playerData = new JSONObject(jsonContent);
-
-                    String playerName = playerData.getString("name");
-
-                    players.add(playerName);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+            if (!fileName.endsWith(".dat")) continue;
+            UUID id = UUID.fromString(fileName.substring(0, fileName.length() - 4));
+            players.add(getNameByUUID(id));
         }
         return players;
-    }
-
-    public static List<UUID> getPlayerUUIDs() {
-        List<UUID> ids = new ArrayList<>();
-        File playerDataDirectory = new File("world/playerdata/");
-
-        File[] playerDataFiles = playerDataDirectory.listFiles();
-
-        if (playerDataFiles == null) return List.of();
-
-        for (File playerDataFile : playerDataFiles) {
-            String fileName = playerDataFile.getName();
-            if (fileName.endsWith(".dat")) {
-                UUID id = UUID.fromString(fileName.substring(0, fileName.length() - 4));
-
-                ids.add(id);
-            }
-        }
-        return ids;
     }
 }
