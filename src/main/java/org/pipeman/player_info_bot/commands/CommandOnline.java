@@ -27,7 +27,7 @@ public class CommandOnline {
         MessageEmbed embed = new EmbedBuilder()
                 .setTitle("Kryeit.com", "https://kryeit.com")
                 .addField("There are " + names.size() + " players online:", players.toString(), false)
-        //        .addField("TPS", format.format(Lag.getTPS()), false)
+                .addField("TPS", format.format(Lag.getTPS()), false)
                 .setColor(new Color(59, 152, 0))
                 .build();
 
