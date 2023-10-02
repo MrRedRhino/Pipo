@@ -4,9 +4,9 @@
   "version": "${version}",
   "name": "Player-Info-Bot",
   "description": "",
-  "authors": [],
+  "authors": ["MrRedRhino"],
   "contact": {
-    "repo": "https://github.com/MuriPlz/Player-Info-Bot"
+    "repo": "https://github.com/MrRedRhino/Player-Info-Bot"
   },
   "license": "All-Rights-Reserved",
   "icon": "assets/player-info-bot/icon.png",
