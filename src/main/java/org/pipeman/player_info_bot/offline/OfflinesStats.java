@@ -12,11 +12,11 @@ public class OfflinesStats {
     public static int getPlayerStat(String stat, UUID player) {
         File playerDataDirectory = new File("world/stats/");
 
-        File[] playerDataFiles = playerDataDirectory.listFiles();
+        File[] statDataFiles = playerDataDirectory.listFiles();
 
-        if (playerDataFiles == null) return 0;
+        if (statDataFiles == null) return 0;
 
-        for (File playerDataFile : playerDataFiles) {
+        for (File playerDataFile : statDataFiles) {
             String fileName = playerDataFile.getName();
             if (fileName.endsWith(".json")) {
                 UUID id = UUID.fromString(fileName.substring(0, fileName.length() - 5));
@@ -32,7 +32,6 @@ public class OfflinesStats {
                             .optInt("minecraft:" + stat.toLowerCase(), 0);
 
                 } catch (Exception e) {
-                    // Handle exceptions (e.g., JSON parsing errors)
                     e.printStackTrace();
                 }
             }
