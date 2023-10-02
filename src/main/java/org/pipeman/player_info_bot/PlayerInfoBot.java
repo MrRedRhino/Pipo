@@ -39,14 +39,9 @@ public final class PlayerInfoBot implements ModInitializer {
 
             JDA.addEventListener(new CommandListener());
             JDA.addEventListener(new DownloadModsListener());
-        } catch (InterruptedException | IOException e) {
-            throw new RuntimeException(e);
-        }
 
-
-        try {
             JDA.awaitReady();
-        } catch (InterruptedException e) {
+        } catch (InterruptedException | IOException e) {
             throw new RuntimeException(e);
         }
 
