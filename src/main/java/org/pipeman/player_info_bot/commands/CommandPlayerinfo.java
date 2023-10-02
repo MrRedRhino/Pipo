@@ -4,9 +4,6 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.utils.FileUpload;
-import net.minecraft.stat.Stat;
-import net.minecraft.stat.Stats;
-import net.minecraft.util.Identifier;
 import org.pipeman.player_info_bot.PlayerInformation;
 import org.pipeman.player_info_bot.Utils;
 import org.pipeman.player_info_bot.offline.Offlines;
@@ -17,7 +14,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
-import java.util.function.Function;
 
 public class CommandPlayerinfo {
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");

@@ -1,14 +1,11 @@
 package org.pipeman.player_info_bot;
 
-import net.minecraft.stat.Stat;
-import net.minecraft.util.Identifier;
 import org.pipeman.player_info_bot.grief_defender.GriefDefenderImpl;
 import org.pipeman.player_info_bot.offline.Offlines;
 import org.pipeman.player_info_bot.offline.OfflinesStats;
 
 import java.util.Arrays;
 import java.util.Optional;
-import java.util.function.Function;
 
 public record PlayerInformation(int rank, long playtime, long lastSeen, boolean online,
                                 Optional<Integer> totalClaimBlocks) {
