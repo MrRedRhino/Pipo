@@ -1,27 +1,16 @@
 package org.pipeman.player_info_bot.tps;
 
-public class Lag implements Runnable {
-    private static final long[] TICKS = new long[600];
-    private static int TICK_COUNT = 0;
+import me.lucko.spark.api.Spark;
+import me.lucko.spark.api.SparkProvider;
+import me.lucko.spark.api.statistic.StatisticWindow;
+import me.lucko.spark.api.statistic.types.DoubleStatistic;
+
+public class Lag {
 
     public static double getTPS() {
-        return getTPS(100);
-    }
+        Spark spark = SparkProvider.get();
 
-    public static double getTPS(int ticks) {
-        if (TICK_COUNT < ticks) {
-            return 20.0D;
-        }
-
-        int target = (TICK_COUNT - 1 - ticks) % TICKS.length;
-        long elapsed = System.currentTimeMillis() - TICKS[target];
-
-        return ticks / (elapsed / 1000.0D);
-    }
-
-    public void run() {
-        TICKS[(TICK_COUNT % TICKS.length)] = System.currentTimeMillis();
-
-        TICK_COUNT += 1;
+        DoubleStatistic<StatisticWindow.TicksPerSecond> tps = spark.tps();
+        return tps.poll(StatisticWindow.TicksPerSecond.MINUTES_5);
     }
 }

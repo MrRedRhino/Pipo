@@ -4,16 +4,16 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.utils.FileUpload;
-import org.bukkit.Statistic;
 import org.pipeman.player_info_bot.PlayerInformation;
 import org.pipeman.player_info_bot.Utils;
+import org.pipeman.player_info_bot.offline.Offlines;
+import org.pipeman.player_info_bot.offline.OfflinesStats;
 
 import java.awt.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
-import java.util.function.Function;
 
 public class CommandPlayerinfo {
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
@@ -61,13 +61,12 @@ public class CommandPlayerinfo {
                     )
             );
 
-            Function<Statistic, Integer> statisticSupplier = inf.statisticSupplier();
             embedBuilder.addField(
                     "Other statistics",
                     String.format("%.1f km walked, %d deaths, %d mobs killed",
-                            statisticSupplier.apply(Statistic.WALK_ONE_CM) / 100_000d,
-                            statisticSupplier.apply(Statistic.DEATHS),
-                            statisticSupplier.apply(Statistic.MOB_KILLS)
+                            OfflinesStats.getPlayerStat("walk_one_cm", Offlines.getUUIDbyName(playerName)) / 100_000d,
+                            OfflinesStats.getPlayerStat("deaths", Offlines.getUUIDbyName(playerName)),
+                            OfflinesStats.getPlayerStat("mob_kills", Offlines.getUUIDbyName(playerName))
                     ),
                     false
             );

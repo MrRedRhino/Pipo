@@ -1,7 +1,6 @@
 package org.pipeman.player_info_bot;
 
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
+import org.pipeman.player_info_bot.offline.Offlines;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,9 +20,9 @@ public class Leaderboard {
 
     public static List<LeaderboardEntry> getLeaderboard() {
         List<LeaderboardEntry> list = new ArrayList<>();
-        for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
-            if (player.getName() != null) {
-                list.add(new LeaderboardEntry(Utils.getPlaytime(player), player.getName()));
+        for (String name : Offlines.getPlayerNames()) {
+            if (name != null) {
+                list.add(new LeaderboardEntry(Utils.getPlaytime(name), name));
             }
         }
         Collections.sort(list);

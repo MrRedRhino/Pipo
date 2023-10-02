@@ -1,4 +1,0 @@
-name: Player-Info-Bot
-version: '${project.version}'
-main: org.pipeman.player_info_bot.PlayerInfoBot
-api-version: 1.18

@@ -25,7 +25,14 @@ public class CommandMods {
 
         builder.addField(
                 "Step 2: Download required mods",
-                "Click [here](https://kryeit.com/mods) to download the mods.",
+                "Click [here](https://kryeit.com/mods) to download the mods.\n" +
+                        "Or download the [Modrinth](https://modrinth.com/modpack/kryeit) modpack",
+                false
+        );
+
+        builder.addField(
+                "Suggested launcher",
+                "[Modrinth app](https://modrinth.com/app)",
                 false
         );
         return builder.build();

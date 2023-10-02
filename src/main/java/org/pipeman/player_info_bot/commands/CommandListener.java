@@ -4,8 +4,7 @@ import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInterac
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
+import org.pipeman.player_info_bot.offline.Offlines;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +30,10 @@ public class CommandListener extends ListenerAdapter {
 
     private List<String> getNameSuggestions(String input) {
         List<String> players = new ArrayList<>();
-        for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
+        for (String name : Offlines.getPlayerNames()) {
             if (players.size() >= 5) break;
-            String playerName = player.getName();
-            if (playerName != null && playerName.toLowerCase().contains(input) && !players.contains(playerName)) {
-                players.add(playerName);
+            if (name != null && name.toLowerCase().contains(input) && !players.contains(name)) {
+                players.add(name);
             }
         }
         return players;

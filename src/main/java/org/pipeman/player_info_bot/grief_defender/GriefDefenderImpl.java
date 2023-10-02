@@ -2,7 +2,7 @@ package org.pipeman.player_info_bot.grief_defender;
 
 import com.griefdefender.api.GriefDefender;
 import com.griefdefender.api.User;
-import org.bukkit.Bukkit;
+import net.fabricmc.loader.api.FabricLoader;
 
 import java.util.UUID;
 import java.util.function.IntSupplier;
@@ -12,7 +12,7 @@ public class GriefDefenderImpl {
     public static final String ID = "GriefDefender";
 
     public static boolean isAvailable() {
-        return Bukkit.getPluginManager().getPlugin(ID) != null;
+        return FabricLoader.getInstance().isModLoaded(ID);
     }
 
     public static int getClaimBlocks(UUID playerID) {

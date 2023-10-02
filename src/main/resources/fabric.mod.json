@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "player-info-bot",
+  "version": "${version}",
+  "name": "Player-Info-Bot",
+  "description": "",
+  "authors": ["MrRedRhino"],
+  "contact": {
+    "repo": "https://github.com/MrRedRhino/Player-Info-Bot"
+  },
+  "license": "All-Rights-Reserved",
+  "icon": "assets/player-info-bot/icon.png",
+  "environment": "server",
+  "entrypoints": {
+    "main": [
+      "org.pipeman.player_info_bot.PlayerInfoBot"
+    ]
+  },
+  "mixins": [
+    "player-info-bot.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "1.20.x",
+    "spark": "*"
+  }
+}
