@@ -4,7 +4,6 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import org.pipeman.player_info_bot.MinecraftServerSupplier;
-import org.pipeman.player_info_bot.Utils;
 import org.pipeman.player_info_bot.tps.Lag;
 
 import java.awt.*;

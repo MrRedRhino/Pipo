@@ -7,7 +7,6 @@ import net.dv8tion.jda.api.utils.FileUpload;
 import net.minecraft.stat.Stat;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Identifier;
-import org.bukkit.Statistic;
 import org.pipeman.player_info_bot.PlayerInformation;
 import org.pipeman.player_info_bot.Utils;
 

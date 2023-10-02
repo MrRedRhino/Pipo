@@ -2,16 +2,14 @@ package org.pipeman.player_info_bot;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.lapismc.afkplus.AFKPlus;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stat;
-import net.minecraft.stat.StatType;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Identifier;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.Statistic;
 import org.json.JSONObject;
+import org.pipeman.player_info_bot.offline.Offlines;
+import org.pipeman.player_info_bot.offline.OfflinesStats;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -135,10 +133,12 @@ public class Utils {
                 .build();
     }
 
-    public static long getPlaytime(OfflinePlayer player) {
+    public static long getPlaytime(String name) {
+
+        UUID id = Offlines.getUUIDbyName(name);
     //    long afkTime = AFK_PLUS.getPlayer(player).getTotalTimeAFK() / 1000;
         Stat<Identifier> stat = Stats.CUSTOM.getOrCreateStat(Stats.PLAY_TIME);
-        long playtime = player.getStatHandler().getStat(stat) / 20L;
+        long playtime = OfflinesStats.getPlayerStat("play_time", id) / 20L;
     //    return Math.max(0, playtime - afkTime);
         return Math.max(0, playtime);
     }

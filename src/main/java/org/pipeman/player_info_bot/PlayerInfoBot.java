@@ -9,9 +9,7 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.minecraft.world.World;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.pipeman.player_info_bot.commands.CommandListener;
-import org.pipeman.player_info_bot.tps.Lag;
 
 import java.time.Duration;
 import java.util.Timer;
@@ -64,7 +62,7 @@ public final class PlayerInfoBot implements ModInitializer {
             System.out.println("Guild is null!");
         }
 
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, new Lag(), 100L, 1L);
+ //       getServer().getScheduler().scheduleSyncRepeatingTask(this, new Lag(), 100L, 1L);
         registerDisableEvent();
     }
 
