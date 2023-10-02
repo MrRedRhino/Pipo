@@ -55,9 +55,6 @@ public final class PlayerInfoBot implements ModInitializer {
                     .addOption(OptionType.INTEGER, "offset", "Offset of the returned elements in the list", true)
                     .queue();
 
-            long roleId = Long.parseLong(getArgument("kryeitor-role-id", arguments));
-            long interval = Duration.ofDays(1).toMillis();
-            AUTOROLE_TIMER.schedule(new Autorole(guild, JDA.getRoleById(roleId)), interval, interval);
         } else {
             System.out.println("Guild is null!");
         }
