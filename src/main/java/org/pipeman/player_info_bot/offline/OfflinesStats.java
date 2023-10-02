@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class OfflinesStats {
 
-    public static int getPlayerStat(String stat, UUID player) {
+    public static long getPlayerStat(String stat, UUID player) {
         File playerDataDirectory = new File("world/stats/");
 
         File[] statDataFiles = playerDataDirectory.listFiles();
