@@ -13,7 +13,7 @@ public record PlayerInformation(int rank, long playtime, long lastSeen, boolean 
         return Optional.of(new PlayerInformation(
                 Leaderboard.getRank(playerName),
                 Utils.getPlaytime(playerName),
-                OfflinesStats.getPlayerStat("last_played", Offlines.getUUIDbyName(playerName)),
+                PlayerInfoBot.getInstance().lastTimePlayed.getHashMap().get(Offlines.getUUIDbyName(playerName)),
                 Arrays.asList(MinecraftServerSupplier.getServer().getPlayerNames()).contains(playerName),
                 GriefDefenderImpl.isAvailable() ? Optional.of(GriefDefenderImpl.getClaimBlocks(Offlines.getUUIDbyName(playerName))) : Optional.empty()
         ));

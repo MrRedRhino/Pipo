@@ -19,8 +19,8 @@ public class CommandMods {
                 .setTitle("Joining kryeit.com");
 
         builder.addField(
-                "Step 1: Install Forge",
-                "We recommend Forge version 40.1.60 for Minecraft 1.18.2",
+                "Step 1: Install Fabric",
+                "You can install fabric here",
                 false);
 
         builder.addField(

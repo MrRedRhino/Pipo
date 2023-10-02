@@ -9,8 +9,13 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerLoginConnectionEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.world.World;
 import org.pipeman.player_info_bot.commands.CommandListener;
+import org.pipeman.player_info_bot.listener.PlayerLogin;
+import org.pipeman.player_info_bot.listener.PlayerQuit;
+import org.pipeman.player_info_bot.storage.LastTimePlayed;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,20 +23,24 @@ import java.io.InputStream;
 
 public final class PlayerInfoBot implements ModInitializer {
     public static JDA JDA;
-    public final static String KRYEIT_GUILD = "910626990468497439";
-
+    public final static String KRYEIT_GUILD = "1064545752103276544";
+    public LastTimePlayed lastTimePlayed;
+    public static PlayerInfoBot instance;
     @Override
     public void onInitialize() {
-        String token;
+        instance = this;
 
         try {
+            lastTimePlayed = new LastTimePlayed("config/last_time_played");
+
             InputStream in = this.getClass().getResourceAsStream("/secret.txt");
             if (in == null) {
                 throw new FileNotFoundException("Resource not found: secret.txt");
             }
-            token = new String(in.readAllBytes()).trim();
+            String token = new String(in.readAllBytes()).trim();
             in.close();
             JDA = JDABuilder.createDefault(token)
+                    .setActivity(Activity.watching("to 0 players"))
                     .enableIntents(GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS)
                     .build();
 
@@ -67,6 +76,7 @@ public final class PlayerInfoBot implements ModInitializer {
             System.out.println("Guild is null!");
         }
 
+        registerEvents();
         registerDisableEvent();
     }
 
@@ -79,8 +89,17 @@ public final class PlayerInfoBot implements ModInitializer {
         });
     }
 
+    public void registerEvents() {
+        ServerPlayConnectionEvents.JOIN.register(new PlayerLogin());
+        ServerPlayConnectionEvents.DISCONNECT.register(new PlayerQuit());
+    }
+
     public static boolean isMe(ISnowflake user) {
         return user != null && user.getIdLong() == JDA.getSelfUser().getIdLong();
+    }
+
+    public static PlayerInfoBot getInstance() {
+        return instance;
     }
 
 }
