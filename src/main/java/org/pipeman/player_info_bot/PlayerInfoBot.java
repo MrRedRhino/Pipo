@@ -33,9 +33,7 @@ public final class PlayerInfoBot implements ModInitializer {
             in.close();
             JDA = JDABuilder.createDefault(token)
                     .enableIntents(GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS)
-                    .setActivity(Activity.watching("to 0 players"))
-                    .build()
-                    .awaitReady();
+                    .build();
 
             JDA.addEventListener(new CommandListener());
             JDA.addEventListener(new DownloadModsListener());
