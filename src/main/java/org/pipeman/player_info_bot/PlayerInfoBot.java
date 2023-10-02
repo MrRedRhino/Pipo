@@ -2,6 +2,7 @@ package org.pipeman.player_info_bot;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.ISnowflake;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -11,23 +12,37 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.minecraft.world.World;
 import org.pipeman.player_info_bot.commands.CommandListener;
 
-import java.time.Duration;
-import java.util.Timer;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 
 public final class PlayerInfoBot implements ModInitializer {
-    private static final Timer AUTOROLE_TIMER = new Timer();
     public static JDA JDA;
+    public final static String KRYEIT_GUILD = "910626990468497439";
 
     @Override
     public void onInitialize() {
-        String[] arguments = System.getProperty("sun.java.command").split(" ");
-        String token = getArgument("token", arguments);
+        String token;
 
-        JDA = JDABuilder.createDefault(token)
-                .enableIntents(GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS)
-                .build();
-        JDA.addEventListener(new CommandListener());
-        JDA.addEventListener(new DownloadModsListener());
+        try {
+            InputStream in = this.getClass().getResourceAsStream("/secret.txt");
+            if (in == null) {
+                throw new FileNotFoundException("Resource not found: secret.txt");
+            }
+            token = new String(in.readAllBytes()).trim();
+            in.close();
+            JDA = JDABuilder.createDefault(token)
+                    .enableIntents(GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS)
+                    .setActivity(Activity.watching("to 0 players"))
+                    .build()
+                    .awaitReady();
+
+            JDA.addEventListener(new CommandListener());
+            JDA.addEventListener(new DownloadModsListener());
+        } catch (InterruptedException | IOException e) {
+            throw new RuntimeException(e);
+        }
+
 
         try {
             JDA.awaitReady();
@@ -35,7 +50,7 @@ public final class PlayerInfoBot implements ModInitializer {
             throw new RuntimeException(e);
         }
 
-        Guild guild = JDA.getGuildById(Long.parseLong(getArgument("guild", arguments)));
+        Guild guild = JDA.getGuildById(KRYEIT_GUILD);
         if (guild != null) {
             guild.upsertCommand("online", "Returns currently online players")
                     .queue();
@@ -59,7 +74,6 @@ public final class PlayerInfoBot implements ModInitializer {
             System.out.println("Guild is null!");
         }
 
- //       getServer().getScheduler().scheduleSyncRepeatingTask(this, new Lag(), 100L, 1L);
         registerDisableEvent();
     }
 
@@ -76,13 +90,4 @@ public final class PlayerInfoBot implements ModInitializer {
         return user != null && user.getIdLong() == JDA.getSelfUser().getIdLong();
     }
 
-    private static String getArgument(String key, String[] arguments) {
-        key = key + "=";
-        for (String argument : arguments) {
-            if (argument.startsWith(key)) {
-                return argument.substring(key.length());
-            }
-        }
-        throw new RuntimeException("Could not find argument " + key);
-    }
 }
