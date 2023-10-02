@@ -5,8 +5,6 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.minecraft.stat.Stat;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Identifier;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.json.JSONObject;
 import org.pipeman.player_info_bot.offline.Offlines;
 import org.pipeman.player_info_bot.offline.OfflinesStats;
@@ -114,15 +112,6 @@ public class Utils {
             out.add(mappingFunction.apply(r));
         }
         return out;
-    }
-
-    public static Optional<OfflinePlayer> getOfflinePlayer(String name) {
-        for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
-            if (player.getName() != null && player.getName().equals(name)) {
-                return Optional.of(player);
-            }
-        }
-        return Optional.empty();
     }
 
     public static MessageEmbed createErrorEmbed(String error) {
