@@ -1,4 +1,4 @@
-package org.pipeman.pipo;
+package org.pipeman.pipo.listener.discord;
 
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.entities.emoji.EmojiUnion;
@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
+import org.pipeman.pipo.Pipo;
 import org.pipeman.pipo.commands.CommandMods;
 
 public class DownloadModsListener extends ListenerAdapter {

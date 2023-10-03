@@ -7,30 +7,31 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.ISnowflake;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-import net.fabricmc.api.ModInitializer;
+import net.fabricmc.api.DedicatedServerModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.world.World;
 import org.pipeman.pipo.commands.CommandListener;
-import org.pipeman.pipo.listener.PlayerLogin;
-import org.pipeman.pipo.listener.PlayerQuit;
+import org.pipeman.pipo.listener.discord.DownloadModsListener;
+import org.pipeman.pipo.listener.minecraft.PlayerLogin;
+import org.pipeman.pipo.listener.minecraft.PlayerQuit;
 import org.pipeman.pipo.storage.LastTimePlayed;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-public final class Pipo implements ModInitializer {
+public final class Pipo implements DedicatedServerModInitializer {
     public static JDA JDA;
-    public final static String KRYEIT_GUILD = "1064545752103276544";
+    public final static String KRYEIT_GUILD = "910626990468497439";
     public LastTimePlayed lastTimePlayed;
     public static Pipo instance;
     @Override
-    public void onInitialize() {
+    public void onInitializeServer() {
         instance = this;
 
         try {
-            lastTimePlayed = new LastTimePlayed("config/last_time_played");
+            lastTimePlayed = new LastTimePlayed("config/last_time_played.properties");
 
             InputStream in = this.getClass().getResourceAsStream("/secret.txt");
             if (in == null) {

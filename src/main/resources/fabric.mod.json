@@ -12,7 +12,7 @@
   "icon": "assets/pipo/icon.png",
   "environment": "server",
   "entrypoints": {
-    "main": [
+    "server": [
       "org.pipeman.pipo.Pipo"
     ]
   },

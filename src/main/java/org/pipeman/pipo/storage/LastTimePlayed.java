@@ -46,10 +46,8 @@ public class LastTimePlayed {
         setHashMap(hashMap);
     }
 
-    public void deleteElement(UUID playerID) throws IOException {
-        Map<UUID, Long> hashMap = getHashMap();
-        hashMap.remove(playerID);
-        setHashMap(hashMap);
+    public long getElement(UUID playerID) {
+        return getHashMap().get(playerID);
     }
 }
 

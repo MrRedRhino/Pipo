@@ -1,4 +1,4 @@
-package org.pipeman.pipo.listener;
+package org.pipeman.pipo.listener.minecraft;
 
 import net.dv8tion.jda.api.entities.Activity;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
