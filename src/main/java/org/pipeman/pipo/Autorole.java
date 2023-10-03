@@ -1,4 +1,4 @@
-package org.pipeman.player_info_bot;
+package org.pipeman.pipo;
 
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;

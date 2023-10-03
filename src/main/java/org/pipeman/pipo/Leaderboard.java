@@ -1,6 +1,6 @@
-package org.pipeman.player_info_bot;
+package org.pipeman.pipo;
 
-import org.pipeman.player_info_bot.offline.Offlines;
+import org.pipeman.pipo.offline.Offlines;
 
 import java.util.ArrayList;
 import java.util.Collections;

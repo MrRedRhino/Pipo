@@ -1,15 +1,9 @@
-package org.pipeman.player_info_bot.storage;
+package org.pipeman.pipo.storage;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-import java.util.UUID;
-
-import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;

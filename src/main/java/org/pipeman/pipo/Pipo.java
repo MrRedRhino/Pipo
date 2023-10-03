@@ -1,4 +1,4 @@
-package org.pipeman.player_info_bot;
+package org.pipeman.pipo;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -9,23 +9,22 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
-import net.fabricmc.fabric.api.networking.v1.ServerLoginConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.world.World;
-import org.pipeman.player_info_bot.commands.CommandListener;
-import org.pipeman.player_info_bot.listener.PlayerLogin;
-import org.pipeman.player_info_bot.listener.PlayerQuit;
-import org.pipeman.player_info_bot.storage.LastTimePlayed;
+import org.pipeman.pipo.commands.CommandListener;
+import org.pipeman.pipo.listener.PlayerLogin;
+import org.pipeman.pipo.listener.PlayerQuit;
+import org.pipeman.pipo.storage.LastTimePlayed;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-public final class PlayerInfoBot implements ModInitializer {
+public final class Pipo implements ModInitializer {
     public static JDA JDA;
     public final static String KRYEIT_GUILD = "1064545752103276544";
     public LastTimePlayed lastTimePlayed;
-    public static PlayerInfoBot instance;
+    public static Pipo instance;
     @Override
     public void onInitialize() {
         instance = this;
@@ -98,7 +97,7 @@ public final class PlayerInfoBot implements ModInitializer {
         return user != null && user.getIdLong() == JDA.getSelfUser().getIdLong();
     }
 
-    public static PlayerInfoBot getInstance() {
+    public static Pipo getInstance() {
         return instance;
     }
 

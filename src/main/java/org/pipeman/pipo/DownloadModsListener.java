@@ -1,4 +1,4 @@
-package org.pipeman.player_info_bot;
+package org.pipeman.pipo;
 
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.entities.emoji.EmojiUnion;
@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
-import org.pipeman.player_info_bot.commands.CommandMods;
+import org.pipeman.pipo.commands.CommandMods;
 
 public class DownloadModsListener extends ListenerAdapter {
     @Override
@@ -27,10 +27,10 @@ public class DownloadModsListener extends ListenerAdapter {
         EmojiUnion emojiUnion = event.getReaction().getEmoji();
         if (emojiUnion.getType() != Emoji.Type.UNICODE) return;
         UnicodeEmoji emoji = emojiUnion.asUnicode();
-        if (!emoji.getFormatted().equals("\uD83D\uDEAB") || PlayerInfoBot.isMe(event.getMember())) return;
+        if (!emoji.getFormatted().equals("\uD83D\uDEAB") || Pipo.isMe(event.getMember())) return;
 
         event.retrieveMessage().queue(m -> {
-            if (PlayerInfoBot.isMe(m.getAuthor())) m.delete().queue();
+            if (Pipo.isMe(m.getAuthor())) m.delete().queue();
         });
     }
 }

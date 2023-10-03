@@ -1,4 +1,4 @@
-package org.pipeman.player_info_bot.commands;
+package org.pipeman.pipo.commands;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;

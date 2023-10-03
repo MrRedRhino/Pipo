@@ -1,4 +1,4 @@
-package org.pipeman.player_info_bot;
+package org.pipeman.pipo;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -6,8 +6,8 @@ import net.minecraft.stat.Stat;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Identifier;
 import org.json.JSONObject;
-import org.pipeman.player_info_bot.offline.Offlines;
-import org.pipeman.player_info_bot.offline.OfflinesStats;
+import org.pipeman.pipo.offline.Offlines;
+import org.pipeman.pipo.offline.OfflinesStats;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

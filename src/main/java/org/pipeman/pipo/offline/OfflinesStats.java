@@ -1,4 +1,4 @@
-package org.pipeman.player_info_bot.offline;
+package org.pipeman.pipo.offline;
 
 import org.json.JSONObject;
 

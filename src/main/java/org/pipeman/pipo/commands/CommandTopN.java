@@ -1,12 +1,12 @@
-package org.pipeman.player_info_bot.commands;
+package org.pipeman.pipo.commands;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
-import org.pipeman.player_info_bot.Leaderboard;
-import org.pipeman.player_info_bot.Leaderboard.LeaderboardEntry;
-import org.pipeman.player_info_bot.Utils;
+import org.pipeman.pipo.Leaderboard;
+import org.pipeman.pipo.Leaderboard.LeaderboardEntry;
+import org.pipeman.pipo.Utils;
 
 import java.awt.*;
 import java.text.MessageFormat;

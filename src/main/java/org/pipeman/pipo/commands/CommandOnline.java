@@ -1,10 +1,10 @@
-package org.pipeman.player_info_bot.commands;
+package org.pipeman.pipo.commands;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import org.pipeman.player_info_bot.MinecraftServerSupplier;
-import org.pipeman.player_info_bot.tps.Lag;
+import org.pipeman.pipo.MinecraftServerSupplier;
+import org.pipeman.pipo.tps.Lag;
 
 import java.awt.*;
 import java.text.DecimalFormat;

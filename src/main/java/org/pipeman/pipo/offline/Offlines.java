@@ -1,13 +1,10 @@
-package org.pipeman.player_info_bot.offline;
+package org.pipeman.pipo.offline;
 
 import com.mojang.authlib.GameProfile;
 import net.minecraft.util.UserCache;
-import org.json.JSONObject;
-import org.pipeman.player_info_bot.MinecraftServerSupplier;
+import org.pipeman.pipo.MinecraftServerSupplier;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

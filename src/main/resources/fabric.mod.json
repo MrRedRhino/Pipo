@@ -1,23 +1,23 @@
 {
   "schemaVersion": 1,
-  "id": "player-info-bot",
+  "id": "pipo",
   "version": "${version}",
-  "name": "Player-Info-Bot",
+  "name": "Pipo",
   "description": "",
-  "authors": ["MrRedRhino"],
+  "authors": ["MrRedRhino", "MuriPlz"],
   "contact": {
     "repo": "https://github.com/MrRedRhino/Player-Info-Bot"
   },
   "license": "All-Rights-Reserved",
-  "icon": "assets/player-info-bot/icon.png",
+  "icon": "assets/pipo/icon.png",
   "environment": "server",
   "entrypoints": {
     "main": [
-      "org.pipeman.player_info_bot.PlayerInfoBot"
+      "org.pipeman.pipo.Pipo"
     ]
   },
   "mixins": [
-    "player-info-bot.mixins.json"
+    "pipo.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=${loader_version}",
