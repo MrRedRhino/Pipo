@@ -132,6 +132,14 @@ public class Utils {
         return Math.max(0, playtime);
     }
 
+    public static long getLastPlayed(String name) {
+        return Pipo.getInstance().lastTimePlayed.getElement(Offlines.getUUIDbyName(name)) * 1000;
+    }
+
+    public static boolean isOnline(String name) {
+        return Arrays.asList(MinecraftServerSupplier.getServer().getPlayerNames()).contains(name);
+    }
+
     public static int getOnlinePlayersSize() {
         return MinecraftServerSupplier.getServer().getCurrentPlayerCount();
     }

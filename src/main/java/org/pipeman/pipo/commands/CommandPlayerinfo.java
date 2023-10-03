@@ -37,8 +37,8 @@ public class CommandPlayerinfo {
                         return "Currently online";
                     } else {
                         long lastSeen = inf.lastSeen();
-                        int daysAgo = (int) Math.floorDiv(System.currentTimeMillis() - lastSeen * 1000, 86_400_000);
-                        String time = DATE_FORMAT.format(new Date(lastSeen * 1000));
+                        int daysAgo = (int) Math.floorDiv(System.currentTimeMillis() - lastSeen, 86_400_000);
+                        String time = DATE_FORMAT.format(new Date(lastSeen));
                         return "On " + time + " (" + daysAgo + " days ago)";
                     }
                 }).orElse("Not found. Check spelling and use suggestions provided when typing the command."),
