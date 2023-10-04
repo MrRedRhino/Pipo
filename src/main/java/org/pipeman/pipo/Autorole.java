@@ -3,26 +3,36 @@ package org.pipeman.pipo;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
 
-import java.time.OffsetDateTime;
-import java.time.Period;
 import java.util.TimerTask;
+import java.util.UUID;
 
 public class Autorole extends TimerTask {
+    public final static String KRYEITOR = "1009788977894666240";
+    public final static String COLLABORATOR = "1041751895062089779";
+
     private final Guild guild;
     private final Role role;
 
-    public Autorole(Guild guild, Role role) {
-        this.guild = guild;
+    public Autorole(Role role) {
+        this.guild = Pipo.JDA.getGuildById(Pipo.KRYEIT_GUILD);
         this.role = role;
     }
 
     @Override
     public void run() {
         guild.loadMembers(member -> {
-            Period period = Period.between(member.getTimeJoined().toLocalDate(), OffsetDateTime.now().toLocalDate());
-            Period requiredPeriod = Period.ofMonths(6);
-            if (requiredPeriod.minus(period).isNegative() && !member.getRoles().contains(role)) {
-                guild.addRoleToMember(member, role).queue();
+            UUID id = Utils.getMinecraftId(member);
+            if (id == null) return;
+            if (member.getRoles().contains(role)) {
+                Utils.isPlayerOnGroup(id, role.getName().toLowerCase()).thenAcceptAsync(result -> {
+                    if (!result)
+                        Utils.addGroup(id, role.getName().toLowerCase());
+                });
+            } else {
+                Utils.isPlayerOnGroup(id, role.getName().toLowerCase()).thenAcceptAsync(result -> {
+                    if (result)
+                        Utils.removeGroup(id, role.getName().toLowerCase());
+                });
             }
         });
     }

@@ -16,22 +16,31 @@ import org.pipeman.pipo.listener.discord.DownloadModsListener;
 import org.pipeman.pipo.listener.minecraft.PlayerLogin;
 import org.pipeman.pipo.listener.minecraft.PlayerQuit;
 import org.pipeman.pipo.storage.LastTimePlayed;
+import org.pipeman.pipo.storage.MinecraftToDiscord;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.Duration;
+import java.util.Timer;
 
 public final class Pipo implements DedicatedServerModInitializer {
+    private static final Timer KRYEITOR_TIMER = new Timer();
+    private static final Timer COLLABORATOR_TIMER = new Timer();
+
     public static JDA JDA;
     public final static String KRYEIT_GUILD = "910626990468497439";
     public LastTimePlayed lastTimePlayed;
+    public MinecraftToDiscord minecraftToDiscord;
     public static Pipo instance;
+
     @Override
     public void onInitializeServer() {
         instance = this;
 
         try {
             lastTimePlayed = new LastTimePlayed("config/last_time_played.properties");
+            minecraftToDiscord = new MinecraftToDiscord("config/minecraft_to_discord.properties");
 
             InputStream in = this.getClass().getResourceAsStream("/secret.txt");
             if (in == null) {
@@ -78,6 +87,8 @@ public final class Pipo implements DedicatedServerModInitializer {
 
         registerEvents();
         registerDisableEvent();
+
+        scheduleTimers();
     }
 
     public void registerDisableEvent() {
@@ -100,6 +111,12 @@ public final class Pipo implements DedicatedServerModInitializer {
 
     public static Pipo getInstance() {
         return instance;
+    }
+
+    public void scheduleTimers() {
+        long interval = Duration.ofMinutes(30).toMillis();
+        KRYEITOR_TIMER.schedule(new Autorole(JDA.getRoleById(Autorole.KRYEITOR)), interval, interval);
+        COLLABORATOR_TIMER.schedule(new Autorole(JDA.getRoleById(Autorole.COLLABORATOR)), interval, interval);
     }
 
 }
