@@ -1,13 +1,13 @@
-package org.pipeman.player_info_bot.commands;
+package org.pipeman.pipo.commands;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.utils.FileUpload;
-import org.pipeman.player_info_bot.PlayerInformation;
-import org.pipeman.player_info_bot.Utils;
-import org.pipeman.player_info_bot.offline.Offlines;
-import org.pipeman.player_info_bot.offline.OfflinesStats;
+import org.pipeman.pipo.PlayerInformation;
+import org.pipeman.pipo.Utils;
+import org.pipeman.pipo.offline.Offlines;
+import org.pipeman.pipo.offline.OfflinesStats;
 
 import java.awt.*;
 import java.text.DateFormat;

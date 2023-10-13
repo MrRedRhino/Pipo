@@ -1,4 +1,4 @@
-package org.pipeman.player_info_bot.grief_defender;
+package org.pipeman.pipo.compat;
 
 import com.griefdefender.api.GriefDefender;
 import com.griefdefender.api.User;

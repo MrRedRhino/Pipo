@@ -1,4 +1,4 @@
-package org.pipeman.player_info_bot.offline;
+package org.pipeman.pipo.offline;
 
 import org.json.JSONObject;
 
@@ -21,16 +21,15 @@ public class OfflinesStats {
             if (fileName.endsWith(".json")) {
                 UUID id = UUID.fromString(fileName.substring(0, fileName.length() - 5));
 
-                if (player != id) continue;
+                if (!player.equals(id)) continue;
 
                 try {
                     String jsonContent = new String(Files.readAllBytes(Paths.get(playerDataFile.getAbsolutePath())));
                     JSONObject statData = new JSONObject(jsonContent);
 
-                    return statData.getJSONObject("stats")
-                            .getJSONObject("minecraft:" + stat.toLowerCase())
-                            .optInt("minecraft:" + stat.toLowerCase(), 0);
+                    JSONObject customStats = statData.getJSONObject("stats").getJSONObject("minecraft:custom");
 
+                    return customStats.optLong("minecraft:" + stat.toLowerCase(), 0);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

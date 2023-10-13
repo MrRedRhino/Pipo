@@ -1,4 +1,4 @@
-package org.pipeman.player_info_bot.tps;
+package org.pipeman.pipo.tps;
 
 import me.lucko.spark.api.Spark;
 import me.lucko.spark.api.SparkProvider;

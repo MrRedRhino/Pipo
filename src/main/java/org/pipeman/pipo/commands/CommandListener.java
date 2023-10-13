@@ -1,10 +1,10 @@
-package org.pipeman.player_info_bot.commands;
+package org.pipeman.pipo.commands;
 
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
-import org.pipeman.player_info_bot.offline.Offlines;
+import org.pipeman.pipo.offline.Offlines;
 
 import java.util.ArrayList;
 import java.util.List;

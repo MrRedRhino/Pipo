@@ -1,4 +1,4 @@
-package org.pipeman.player_info_bot;
+package org.pipeman.pipo;
 
 import net.minecraft.server.MinecraftServer;
 

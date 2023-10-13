@@ -1,13 +1,17 @@
-package org.pipeman.player_info_bot;
+package org.pipeman.pipo;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.luckperms.api.LuckPermsProvider;
+import net.luckperms.api.model.group.Group;
+import net.luckperms.api.node.Node;
 import net.minecraft.stat.Stat;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Identifier;
 import org.json.JSONObject;
-import org.pipeman.player_info_bot.offline.Offlines;
-import org.pipeman.player_info_bot.offline.OfflinesStats;
+import org.pipeman.pipo.offline.Offlines;
+import org.pipeman.pipo.offline.OfflinesStats;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -21,6 +25,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 
 public class Utils {
@@ -127,8 +133,48 @@ public class Utils {
         UUID id = Offlines.getUUIDbyName(name);
     //    long afkTime = AFK_PLUS.getPlayer(player).getTotalTimeAFK() / 1000;
         Stat<Identifier> stat = Stats.CUSTOM.getOrCreateStat(Stats.PLAY_TIME);
-        long playtime = OfflinesStats.getPlayerStat("play_time", id) / 20L;
+        long playtime = OfflinesStats.getPlayerStat("play_time", id) / (20 * 60);
     //    return Math.max(0, playtime - afkTime);
         return Math.max(0, playtime);
+    }
+
+    public static long getLastPlayed(String name) {
+        return Pipo.getInstance().lastTimePlayed.getElement(Offlines.getUUIDbyName(name)) * 1000;
+    }
+
+    public static boolean isOnline(String name) {
+        return Arrays.asList(MinecraftServerSupplier.getServer().getPlayerNames()).contains(name);
+    }
+
+    public static int getOnlinePlayersSize() {
+        return MinecraftServerSupplier.getServer().getCurrentPlayerCount();
+    }
+
+    public static UUID getMinecraftId(Member member) {
+        AtomicReference<UUID> id = new AtomicReference<>();
+        Pipo.getInstance().minecraftToDiscord.getHashMap().forEach(((uuid, memberid) -> {
+            if (memberid.equals(member.getId())) id.set(uuid);
+        }));
+        return id.get();
+    }
+
+    public static CompletableFuture<Boolean> isPlayerOnGroup(UUID who, String group) {
+        return LuckPermsProvider.get().getUserManager().loadUser(who)
+                .thenApplyAsync(user -> {
+                    Collection<Group> inheritedGroups = user.getInheritedGroups(user.getQueryOptions());
+                    return inheritedGroups.stream().anyMatch(g -> g.getName().equals(group));
+                });
+    }
+
+    public static void addGroup(UUID id, String permission) {
+        LuckPermsProvider.get().getUserManager().modifyUser(id, user -> {
+            user.data().add(Node.builder("group." + permission).build());
+        });
+    }
+
+    public static void removeGroup(UUID id, String permission) {
+        LuckPermsProvider.get().getUserManager().modifyUser(id, user -> {
+            user.data().remove(Node.builder("group." + permission).build());
+        });
     }
 }
