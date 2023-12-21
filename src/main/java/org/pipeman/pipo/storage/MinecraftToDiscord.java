@@ -15,9 +15,23 @@ public class MinecraftToDiscord {
 
     public MinecraftToDiscord(String filePath) throws IOException {
         this.file = new File(filePath);
-        if (!file.exists()) {
-            file.createNewFile();
+
+        // Check if the parent directories exist, create them if not
+        if (!file.getParentFile().exists()) {
+            boolean directoriesCreated = file.getParentFile().mkdirs();
+            if (!directoriesCreated) {
+                throw new IOException("Failed to create parent directories for: " + filePath);
+            }
         }
+
+        // Check if the file exists, create it if not
+        if (!file.exists()) {
+            boolean fileCreated = file.createNewFile();
+            if (!fileCreated) {
+                throw new IOException("Failed to create file: " + filePath);
+            }
+        }
+
         this.properties = new Properties();
         this.properties.load(new FileInputStream(file));
     }
