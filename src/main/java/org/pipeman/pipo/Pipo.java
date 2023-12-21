@@ -39,8 +39,8 @@ public final class Pipo implements DedicatedServerModInitializer {
         instance = this;
 
         try {
-            lastTimePlayed = new LastTimePlayed("config/last_time_played.properties");
-            minecraftToDiscord = new MinecraftToDiscord("config/minecraft_to_discord.properties");
+            lastTimePlayed = new LastTimePlayed("mods/last_time_played");
+            minecraftToDiscord = new MinecraftToDiscord("mods/minecraft_to_discord");
 
             InputStream in = this.getClass().getResourceAsStream("/secret.txt");
             if (in == null) {
