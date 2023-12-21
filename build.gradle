@@ -30,7 +30,7 @@ dependencies {
     include(implementation("net.dv8tion:JDA:${jda_version}"))
     compileOnly "com.griefdefender:api:${griefdefender_version}"
     compileOnly "net.luckperms:api:${luckperms_version}"
-    implementation 'org.json:json:20230227'
+    include(implementation 'org.json:json:20230227')
     compileOnly 'me.lucko:spark-api:0.1-SNAPSHOT'
 
     // Dependencies for JDA
@@ -41,7 +41,7 @@ dependencies {
     include 'com.neovisionaries:nv-websocket-client:2.14'
     include 'com.squareup.okhttp3:okhttp:3.14.9'
     include 'com.squareup.okio:okio:1.17.2'
-    include 'com.fasterxml.jackson.core:jackson-databind:2.12.7.1'
+    include 'com.fasterxml.jackson.core:jackson-databind:2.10.1'
     include 'com.fasterxml.jackson.core:jackson-annotations:2.10.1'
     include 'com.fasterxml.jackson.core:jackson-core:2.10.1'
     include "club.minnced:discord-webhooks:0.5.8"

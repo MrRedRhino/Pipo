@@ -31,7 +31,6 @@ import java.util.function.Function;
 
 public class Utils {
     private static final HttpClient CLIENT = HttpClient.newHttpClient();
-    //private static final AFKPlus AFK_PLUS = (AFKPlus) AFKPlus.getInstance();
 
     public static byte[] getSkin(String name) {
         try {
