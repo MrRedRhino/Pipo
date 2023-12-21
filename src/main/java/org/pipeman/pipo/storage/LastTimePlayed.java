@@ -47,7 +47,7 @@ public class LastTimePlayed {
     }
 
     public long getElement(UUID playerID) {
-        return getHashMap().get(playerID);
+        return getHashMap().containsKey(playerID) ? getHashMap().get(playerID) : 0;
     }
 }
 

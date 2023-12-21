@@ -46,7 +46,6 @@ public class MinecraftToDiscord {
     }
 
     public String getElement(UUID playerID) {
-        Map<UUID, String> uuidStringMap = getHashMap();
-        return uuidStringMap.get(playerID);
+        return getHashMap().get(playerID);
     }
 }
