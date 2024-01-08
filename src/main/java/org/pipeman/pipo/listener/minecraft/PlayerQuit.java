@@ -19,9 +19,9 @@ public class PlayerQuit implements ServerPlayConnectionEvents.Disconnect {
         }
 
         if (Utils.getOnlinePlayersSize() - 1 == 1) {
-            Pipo.JDA.getPresence().setActivity(Activity.watching("to 1 player"));
+            Pipo.JDA.getPresence().setActivity(Activity.watching("1 player"));
         } else {
-            Pipo.JDA.getPresence().setActivity(Activity.watching("to " + (Utils.getOnlinePlayersSize() - 1) + " players"));
+            Pipo.JDA.getPresence().setActivity(Activity.watching((Utils.getOnlinePlayersSize() - 1) + " players"));
         }
     }
 }

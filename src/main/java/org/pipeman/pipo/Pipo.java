@@ -8,10 +8,14 @@ import net.dv8tion.jda.api.entities.ISnowflake;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.fabricmc.api.DedicatedServerModInitializer;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.world.World;
 import org.pipeman.pipo.commands.CommandListener;
+import org.pipeman.pipo.commands.minecraft.CommandLinkDiscord;
+import org.pipeman.pipo.commands.minecraft.CommandUnlinkDiscord;
+import org.pipeman.pipo.listener.discord.DirectMessageListener;
 import org.pipeman.pipo.listener.discord.DownloadModsListener;
 import org.pipeman.pipo.listener.minecraft.PlayerLogin;
 import org.pipeman.pipo.listener.minecraft.PlayerQuit;
@@ -22,6 +26,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.Timer;
 
 public final class Pipo implements DedicatedServerModInitializer {
@@ -37,10 +42,11 @@ public final class Pipo implements DedicatedServerModInitializer {
     @Override
     public void onInitializeServer() {
         instance = this;
+        CommandLinkDiscord.codes = new HashMap<>();
 
         try {
-            lastTimePlayed = new LastTimePlayed("config/last_time_played.properties");
-            minecraftToDiscord = new MinecraftToDiscord("config/minecraft_to_discord.properties");
+            lastTimePlayed = new LastTimePlayed("mods/pipo/last_time_played");
+            minecraftToDiscord = new MinecraftToDiscord("mods/pipo/minecraft_to_discord");
 
             InputStream in = this.getClass().getResourceAsStream("/secret.txt");
             if (in == null) {
@@ -55,6 +61,7 @@ public final class Pipo implements DedicatedServerModInitializer {
 
             JDA.addEventListener(new CommandListener());
             JDA.addEventListener(new DownloadModsListener());
+            JDA.addEventListener(new DirectMessageListener());
 
             JDA.awaitReady();
         } catch (InterruptedException | IOException e) {
@@ -86,9 +93,17 @@ public final class Pipo implements DedicatedServerModInitializer {
         }
 
         registerEvents();
+        registerCommands();
         registerDisableEvent();
 
         scheduleTimers();
+    }
+
+    public void registerCommands() {
+        CommandRegistrationCallback.EVENT.register((dispatcher, dedicatedServer, commandFunction) -> {
+            CommandLinkDiscord.register(dispatcher);
+            CommandUnlinkDiscord.register(dispatcher);
+        });
     }
 
     public void registerDisableEvent() {
