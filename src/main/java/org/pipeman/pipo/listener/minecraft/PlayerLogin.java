@@ -12,9 +12,9 @@ public class PlayerLogin implements ServerPlayConnectionEvents.Join {
     @Override
     public void onPlayReady(ServerPlayNetworkHandler handler, PacketSender sender, MinecraftServer server) {
         if (Utils.getOnlinePlayersSize() == 1) {
-            Pipo.JDA.getPresence().setActivity(Activity.watching("to 1 player"));
+            Pipo.JDA.getPresence().setActivity(Activity.watching("1 player"));
         } else {
-            Pipo.JDA.getPresence().setActivity(Activity.watching("to " + Utils.getOnlinePlayersSize() + " players"));
+            Pipo.JDA.getPresence().setActivity(Activity.watching(Utils.getOnlinePlayersSize() + " players"));
         }
     }
 }
